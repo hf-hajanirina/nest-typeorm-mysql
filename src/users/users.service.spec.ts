@@ -80,15 +80,6 @@ describe('UserService', () => {
     });
   });
 
-  describe('remove()', () => {
-    it('should call remove with the passed value', async () => {
-      const removeSpy = jest.spyOn(usersRepository, 'delete');
-      const retVal = await usersService.remove(2);
-      expect(removeSpy).toBeCalledWith(2);
-      expect(retVal).toBeUndefined();
-    });
-  });
-
   describe('update()', () => {
     it('should successfully update user with the passed value', async () => {
       const updatedUserDto = {
@@ -98,6 +89,15 @@ describe('UserService', () => {
       expect(usersService.update(2, updatedUserDto)).resolves.toEqual(
         updatedUserDto,
       );
+    });
+  });
+
+  describe('remove()', () => {
+    it('should call remove with the passed value', async () => {
+      const removeSpy = jest.spyOn(usersRepository, 'delete');
+      const retVal = await usersService.remove(2);
+      expect(removeSpy).toBeCalledWith(2);
+      expect(retVal).toBeUndefined();
     });
   });
 });
