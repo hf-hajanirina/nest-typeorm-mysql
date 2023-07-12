@@ -6,14 +6,14 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
+      MYSQL_DATABASE: nest-typorm-mysql
     ports:
       - "3306:3306"
-  db-test:
+  db-nest-typorm-mysql:
     image: mysql:8
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
+      MYSQL_DATABASE: nest-typorm-mysql
     ports:
       - "3307:3306"

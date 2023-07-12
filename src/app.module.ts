@@ -9,7 +9,7 @@ import { UsersModule } from './users/users.module';
       host: '127.0.0.1',
       port: 3306,
       username: 'root',
-      password: '',
+      password: 'root',
       database: 'nest-typorm-mysql',
       autoLoadEntities: true,
       synchronize: true,
