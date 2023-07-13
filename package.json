@@ -1,10 +1,10 @@
 {
-  "name": "nest-typescript-typeorm-mysql-starter",
+  "name": "nest-typescript-typeorm-mysql",
   "version": "1.0.0",
-  "description": "Nest TypeScript TypeORM MySQL starter repository",
-  "author": "",
+  "description": "Nest TypeScript TypeORM MySQL repository",
+  "author": "Harimisa Florent HAJANIRINA <harimisaflorent.mi@gmail.com>",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "start:watch": "nest start --watch",
     "test:watch": "jest --watchAll",

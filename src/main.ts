@@ -9,13 +9,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   // for swagger
   const config = new DocumentBuilder()
-    .setTitle('Nest TypeORM MySQL Starter')
-    .setDescription('Nest TypeORM MySQL Starter API description...')
+    .setTitle('Nest TypeORM MySQL API')
+    .setDescription('Nest TypeORM MySQL API description...')
     .setVersion('1.0')
     .addTag('APIs')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api/docs', app, document);
   await app.listen(3000);
   console.log(`Application is running on: ${await app.getUrl()}`);
 }
