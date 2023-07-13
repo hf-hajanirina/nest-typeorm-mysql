@@ -2,10 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 const createUserDto: CreateUserDto = {
   firstName: 'firstName #1',
   lastName: 'lastName #1',
+};
+
+const updateUserDto: UpdateUserDto = {
+  firstName: 'firstName #3',
+  lastName: 'lastName #3',
 };
 
 describe('UsersController', () => {
@@ -22,12 +28,12 @@ describe('UsersController', () => {
           useValue: {
             create: jest
               .fn()
-              .mockImplementation((user: CreateUserDto) =>
-                Promise.resolve({ id: '1', ...user }),
+              .mockImplementation((createUserDto: CreateUserDto) =>
+                Promise.resolve({ id: 1, ...createUserDto }),
               ),
             findAll: jest.fn().mockResolvedValue([
               {
-                firstName: 'firstName #1',
+                firstName: 'firstName #2',
                 lastName: 'lastName #1',
               },
               {
@@ -35,13 +41,18 @@ describe('UsersController', () => {
                 lastName: 'lastName #2',
               },
             ]),
-            findOne: jest.fn().mockImplementation((id: string) =>
+            findOne: jest.fn().mockImplementation((id: number) =>
               Promise.resolve({
                 firstName: 'firstName #1',
                 lastName: 'lastName #1',
                 id,
               }),
             ),
+            update: jest
+              .fn()
+              .mockImplementation((id, updateUserDto: UpdateUserDto) =>
+                Promise.resolve({ id, ...updateUserDto }),
+              ),
             remove: jest.fn(),
           },
         },
@@ -60,7 +71,7 @@ describe('UsersController', () => {
     it('should create a user', () => {
       usersController.create(createUserDto);
       expect(usersController.create(createUserDto)).resolves.toEqual({
-        id: '1',
+        id: 1,
         ...createUserDto,
       });
       expect(usersService.create).toHaveBeenCalledWith(createUserDto);
@@ -82,6 +93,18 @@ describe('UsersController', () => {
         id: 1,
       });
       expect(usersService.findOne).toHaveBeenCalled();
+    });
+  });
+
+  describe('update()', () => {
+    it('should update the user', async () => {
+      const id = 1;
+      usersController.update(id, updateUserDto);
+      expect(usersController.update(id, updateUserDto)).resolves.toEqual({
+        id,
+        ...updateUserDto,
+      });
+      expect(usersService.update).toHaveBeenCalledWith(id, updateUserDto);
     });
   });
 
