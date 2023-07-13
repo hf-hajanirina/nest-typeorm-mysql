@@ -16,7 +16,6 @@ export class UsersService {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
-
     return this.usersRepository.save(user);
   }
 
@@ -30,9 +29,12 @@ export class UsersService {
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
     const foundUser = await this.findOne(id);
-    const { firstName, lastName } = updateUserDto;
+    const { firstName, lastName, isActive } = updateUserDto;
     foundUser.firstName = firstName;
     foundUser.lastName = lastName;
+    if (isActive) {
+      foundUser.isActive = isActive;
+    }
     await this.usersRepository.save(foundUser);
     return foundUser;
   }
