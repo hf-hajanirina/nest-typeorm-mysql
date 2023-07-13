@@ -58,7 +58,6 @@ describe('UsersController', () => {
         },
       ],
     }).compile();
-
     usersController = app.get<UsersController>(UsersController);
     usersService = app.get<UsersService>(UsersService);
   });
@@ -69,7 +68,6 @@ describe('UsersController', () => {
 
   describe('create()', () => {
     it('should create a user', () => {
-      usersController.create(createUserDto);
       expect(usersController.create(createUserDto)).resolves.toEqual({
         id: 1,
         ...createUserDto,
@@ -99,7 +97,6 @@ describe('UsersController', () => {
   describe('update()', () => {
     it('should update the user', async () => {
       const id = 1;
-      usersController.update(id, updateUserDto);
       expect(usersController.update(id, updateUserDto)).resolves.toEqual({
         id,
         ...updateUserDto,
@@ -110,7 +107,7 @@ describe('UsersController', () => {
 
   describe('remove()', () => {
     it('should remove the user', () => {
-      usersController.remove(2);
+      expect(usersController.remove(2)).toBeUndefined();
       expect(usersService.remove).toHaveBeenCalled();
     });
   });
