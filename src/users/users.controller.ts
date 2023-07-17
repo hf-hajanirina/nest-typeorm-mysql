@@ -14,11 +14,9 @@ import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import {
   ApiBearerAuth,
-  ApiCreatedResponse,
   ApiForbiddenResponse,
   ApiOkResponse,
   ApiOperation,
-  ApiResponse,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
@@ -40,44 +38,40 @@ export class UsersController {
 
   @Get()
   @ApiOperation({ summary: 'Find all user' })
-  @ApiResponse({
-    status: 200,
+  @ApiOkResponse({
     description: 'The found users',
     isArray: true,
     type: User,
   })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Find one user by id' })
-  @ApiResponse({
-    status: 200,
-    description: 'The found user',
-    type: User,
-  })
+  @ApiOkResponse({ description: 'The found user by id', type: User })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
   findOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.usersService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update user by id' })
-  @ApiResponse({
-    status: 200,
-    description: 'User updated successfully',
-    type: User,
-  })
+  @ApiOkResponse({ description: 'User updated successfully', type: User })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Remove user by id' })
-  @ApiResponse({
-    status: 200,
-    description: 'User removed successfully',
-  })
+  @ApiOkResponse({ description: 'User removed successfully' })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
+  @ApiUnprocessableEntityResponse({ description: 'Bad Request' })
   remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.usersService.remove(id);
   }
