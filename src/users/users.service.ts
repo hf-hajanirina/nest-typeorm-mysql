@@ -4,18 +4,27 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { UserCreatedEvent } from './events/user-created.event';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private eventEmitter: EventEmitter2,
   ) {}
 
   create(createUserDto: CreateUserDto): Promise<User> {
     const user = new User();
     user.firstName = createUserDto.firstName;
     user.lastName = createUserDto.lastName;
+
+    const userCreatedEvent = new UserCreatedEvent();
+    userCreatedEvent.firstName = user.firstName;
+    userCreatedEvent.lastName = user.lastName;
+    this.eventEmitter.emit('user.created', userCreatedEvent);
+
     return this.usersRepository.save(user);
   }
 

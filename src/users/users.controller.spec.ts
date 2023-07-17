@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCreatedListener } from './listeners/user-created.listener';
 
 const createUserDto: CreateUserDto = {
   firstName: 'firstName #1',
@@ -23,6 +24,7 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         UsersService,
+        UserCreatedListener,
         {
           provide: UsersService,
           useValue: {

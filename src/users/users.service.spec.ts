@@ -5,6 +5,7 @@ import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCreatedListener } from './listeners/user-created.listener';
 
 const users = [
   {
@@ -30,6 +31,7 @@ describe('UserService', () => {
     const usersTestingModule: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
+        UserCreatedListener,
         {
           provide: getRepositoryToken(User),
           useValue: {

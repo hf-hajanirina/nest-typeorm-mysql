@@ -24,7 +24,7 @@ describe('Users - /users (e2e)', () => {
           port: 3307,
           username: 'root',
           password: 'root',
-          database: 'test',
+          database: 'nest-typorm-mysql',
           autoLoadEntities: true,
           synchronize: true,
         }),
