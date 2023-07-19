@@ -7,12 +7,38 @@ import { UpdateUserDto } from './dto/update-user.dto';
 const createUserDto: CreateUserDto = {
   firstName: 'firstName #1',
   lastName: 'lastName #1',
+  email: 'email #1',
+  password: 'pwd #1',
 };
 
 const updateUserDto: UpdateUserDto = {
   firstName: 'firstName #3',
   lastName: 'lastName #3',
+  email: 'email #3',
+  password: 'pwd #3',
 };
+
+const user = {
+  firstName: 'firstName #1',
+  lastName: 'lastName #1',
+  email: 'email #1',
+  password: 'pwd #1',
+};
+
+const users = [
+  {
+    firstName: 'firstName #1',
+    lastName: 'lastName #1',
+    email: 'email #1',
+    password: 'pwd #1',
+  },
+  {
+    firstName: 'firstName #2',
+    lastName: 'lastName #2',
+    email: 'email #2',
+    password: 'pwd #2',
+  },
+];
 
 describe('UsersController', () => {
   let usersController: UsersController;
@@ -31,23 +57,12 @@ describe('UsersController', () => {
               .mockImplementation((createUserDto: CreateUserDto) =>
                 Promise.resolve({ id: 1, ...createUserDto }),
               ),
-            findAll: jest.fn().mockResolvedValue([
-              {
-                firstName: 'firstName #2',
-                lastName: 'lastName #1',
-              },
-              {
-                firstName: 'firstName #2',
-                lastName: 'lastName #2',
-              },
-            ]),
-            findOne: jest.fn().mockImplementation((id: number) =>
-              Promise.resolve({
-                firstName: 'firstName #1',
-                lastName: 'lastName #1',
-                id,
-              }),
-            ),
+            findAll: jest.fn().mockResolvedValue(users),
+            findOne: jest
+              .fn()
+              .mockImplementation((id: number) =>
+                Promise.resolve({ id, ...user }),
+              ),
             update: jest
               .fn()
               .mockImplementation((id, updateUserDto: UpdateUserDto) =>
@@ -86,9 +101,8 @@ describe('UsersController', () => {
   describe('findOne()', () => {
     it('should find a user', () => {
       expect(usersController.findOne(1)).resolves.toEqual({
-        firstName: 'firstName #1',
-        lastName: 'lastName #1',
         id: 1,
+        ...user,
       });
       expect(usersService.findOne).toHaveBeenCalled();
     });

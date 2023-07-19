@@ -59,9 +59,12 @@ $ npm run test:cov
 ```
 This example requires docker or a local MySQL installation.  If using a local MySQL database, see `app.module.ts` for credentials, and make sure there are matching credentials in the database and the source code.
 
-# Docker
+## Docker
 There is a `docker-compose.yml` file for starting Docker.
+```bash
+# run docker container
 $ docker-compose up
+```
 
 ## Support
 
@@ -75,4 +78,4 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+Nest is [MIT licensed](https://choosealicense.com/licenses/mit/).

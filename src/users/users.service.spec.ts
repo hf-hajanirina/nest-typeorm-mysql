@@ -6,20 +6,40 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
+const createUserDto: CreateUserDto = {
+  firstName: 'firstName #1',
+  lastName: 'lastName #1',
+  email: 'email #1',
+  password: 'pwd #1',
+};
+
+const updateUserDto: UpdateUserDto = {
+  firstName: 'firstName #3',
+  lastName: 'lastName #3',
+  email: 'email #3',
+  password: 'pwd #3',
+};
+
 const users = [
   {
     firstName: 'firstName #1',
     lastName: 'lastName #1',
+    email: 'email #1',
+    password: 'pwd #1',
   },
   {
     firstName: 'firstName #2',
     lastName: 'lastName #2',
+    email: 'email #2',
+    password: 'pwd #2',
   },
 ];
 
 const user = {
   firstName: 'firstName #1',
   lastName: 'lastName #1',
+  email: 'email #1',
+  password: 'pwd #1',
 };
 
 describe('UserService', () => {
@@ -54,10 +74,6 @@ describe('UserService', () => {
 
   describe('create()', () => {
     it('should successfully insert a user', () => {
-      const createUserDto: CreateUserDto = {
-        firstName: 'firstName #1',
-        lastName: 'lastName #1',
-      };
       expect(usersService.create(createUserDto)).resolves.toEqual(user);
     });
   });
@@ -79,12 +95,8 @@ describe('UserService', () => {
 
   describe('update()', () => {
     it('should successfully update user with the passed value', async () => {
-      const updatedUserDto: UpdateUserDto = {
-        firstName: 'firstName #3',
-        lastName: 'lastName #3',
-      };
-      expect(usersService.update(1, updatedUserDto)).resolves.toEqual(
-        updatedUserDto,
+      expect(usersService.update(1, updateUserDto)).resolves.toEqual(
+        updateUserDto,
       );
     });
   });
