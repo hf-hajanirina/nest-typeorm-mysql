@@ -9,6 +9,7 @@ export class User {
   @ApiProperty({
     example: 'HAJANIRINA',
     description: 'The firstname of the user',
+    required: true,
   })
   @Column()
   firstName: string;
@@ -16,9 +17,26 @@ export class User {
   @ApiProperty({
     example: 'Florent',
     description: 'The lastname of the user',
+    required: true,
   })
   @Column()
   lastName: string;
+
+  @ApiProperty({
+    example: 'harimisaflorent.mi@gmail.com',
+    description: 'The email address of the user',
+    required: true,
+  })
+  @Column()
+  email: string;
+
+  @ApiProperty({
+    example: 'password',
+    description: 'The password of the user',
+    required: true,
+  })
+  @Column()
+  password: string;
 
   @ApiPropertyOptional({
     description: 'The user is active or not',
